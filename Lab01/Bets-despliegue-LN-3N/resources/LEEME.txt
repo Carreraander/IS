@@ -1,0 +1,4 @@
+En la configuración 3N, hay que ejecutar al menos la primera vez el servidor de lógica del negocio (Bets-despliegue-LN-3N)
+con la opción "initialize", para que el servidor de datos cree la BD correctamente (Bets-despliegue-BD-3N)
+
+Después de puede volver a ejecutar con la opción "open", para que no se machaque la BD con cada ejecución

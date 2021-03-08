@@ -1,0 +1,74 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-01-28 15:22:01 #1 store] 
+Database 'C:\Users\ehu\Desktop\Bets-despliegue-1N\resources\bets.temp' is opened by 8332@U032824
+
+[2021-01-28 15:22:01 #2 type.registry] 
+New type domain.Question
+
+[2021-01-28 15:22:01 #3 type] 
+Type domain.Question is not enhanced.
+
+[2021-01-28 15:22:01 #4 type.registry] 
+New type domain.Event
+
+[2021-01-28 15:22:01 #5 type] 
+Type domain.Event is not enhanced.
+
+[2021-01-28 15:22:01 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2021-01-28 15:22:01 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-01-28 15:27:18 #1 store] 
+Database 'C:\Users\ehu\Desktop\Bets-despliegue-1N\resources\bets.temp' is opened by 2132@U032824
+
+[2021-01-28 15:27:18 #2 type.registry] 
+New type domain.Question
+
+[2021-01-28 15:27:18 #3 type] 
+Type domain.Question is not enhanced.
+
+[2021-01-28 15:27:18 #4 type.registry] 
+New type domain.Event
+
+[2021-01-28 15:27:18 #5 type] 
+Type domain.Event is not enhanced.
+
+[2021-01-28 15:27:18 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2021-01-28 15:27:18 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-01-28 15:29:49 #1 store] 
+Database 'C:\Users\ehu\Desktop\Bets-despliegue-1N\resources\bets.temp' has been recovered (tr. 1-5)
+
+[2021-01-28 15:29:49 #2 store] 
+Database 'C:\Users\ehu\Desktop\Bets-despliegue-1N\resources\bets.temp' is opened by 5472@U032824
+
+[2021-01-28 15:29:49 #3 type] 
+Type domain.Question is not enhanced.
+
+[2021-01-28 15:29:49 #4 type] 
+Type domain.Event is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-01-28 15:30:50 #1 store] 
+Database 'C:\Users\ehu\Desktop\Bets-despliegue-1N\resources\bets.temp' has been recovered (tr. 6-6)
+
+[2021-01-28 15:30:50 #2 store] 
+Database 'C:\Users\ehu\Desktop\Bets-despliegue-1N\resources\bets.temp' is opened by 1428@U032824
+
+[2021-01-28 15:30:50 #3 type] 
+Type domain.Question is not enhanced.
+
+[2021-01-28 15:30:50 #4 type] 
+Type domain.Event is not enhanced.
+
