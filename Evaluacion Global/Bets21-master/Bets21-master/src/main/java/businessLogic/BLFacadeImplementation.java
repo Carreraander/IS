@@ -91,6 +91,21 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return events;
 	}
+    @WebMethod	
+   	public Vector<Event> getEvents(String DNI)  {
+   		dbManager.open(false);
+   		Vector<Event>  events=dbManager.getEvents(DNI);
+   		dbManager.close();
+   		return events;
+   	}
+    
+    @WebMethod	
+	public Vector<Event> getPassedEvents(Date date)  {
+		dbManager.open(false);
+		Vector<Event>  events=dbManager.getPassedEvents(date);
+		dbManager.close();
+		return events;
+	}
 
     
 	/**
@@ -139,11 +154,17 @@ public class BLFacadeImplementation  implements BLFacade {
 	
 	@Override
 	@WebMethod
-	public void crearSubasta(String Nombre, Date Fecha, float pujaMin) {
+	public void crearSubasta(String Nombre, Date Fecha, float pujaMin, String DNI) {
 		DataAccess dbManager = new DataAccess();
-		dbManager.crearSubasta(Nombre,Fecha,pujaMin);
+		dbManager.crearSubasta(Nombre,Fecha,pujaMin,DNI);
 		dbManager.close();
 	}
-
+	@WebMethod
+	@Override
+	public void cerrarSubasta(int i) {
+		DataAccess dbManager = new DataAccess();
+		dbManager.cerrarSubasta(i);
+		dbManager.close();
+	}
 }
 

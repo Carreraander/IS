@@ -25,7 +25,25 @@ public class Event implements Serializable {
 	private String description; 
 	private Date eventDate;
 	private double maxPuja;
+	private String estado;
+	private String DNI;
 	
+	public String getDNI() {
+		return DNI;
+	}
+
+	public void setDNI(String dNI) {
+		DNI = dNI;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public double getMaxPuja() {
 		return maxPuja;
 	}
@@ -49,11 +67,13 @@ public class Event implements Serializable {
 		super();
 	}
 
-	public Event(Integer eventNumber, String description,Date eventDate, double maxPuja) {
+	public Event(Integer eventNumber, String description,Date eventDate, double maxPuja, String estado, String DNI) {
 		this.eventNumber = eventNumber;
 		this.description = description;
 		this.eventDate=eventDate;
 		this.maxPuja = maxPuja;
+		this.estado = estado;
+		this.DNI = DNI;
 		
 	}
 	

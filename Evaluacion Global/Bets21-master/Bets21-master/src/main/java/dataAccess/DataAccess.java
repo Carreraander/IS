@@ -20,7 +20,6 @@ import configuration.UtilDate;
 import domain.Event;
 import domain.Login;
 import domain.Question;
-
 import exceptions.QuestionAlreadyExist;
 
 /**
@@ -63,29 +62,29 @@ public class DataAccess  {
 		   int year=today.get(Calendar.YEAR);
 		   if (month==12) { month=0; year+=1;}  
 	    
-			Event ev1=new Event(1, "Atlético-Athletic", UtilDate.newDate(year,month,17), 0.00);
-			Event ev2=new Event(2, "Eibar-Barcelona", UtilDate.newDate(year,month,17), 0.00);
-			Event ev3=new Event(3, "Getafe-Celta", UtilDate.newDate(year,month,17), 0.00);
-			Event ev4=new Event(4, "Alavés-Deportivo", UtilDate.newDate(year,month,17), 0.00);
-			Event ev5=new Event(5, "Español-Villareal", UtilDate.newDate(year,month,17), 0.00);
-			Event ev6=new Event(6, "Las Palmas-Sevilla", UtilDate.newDate(year,month,17), 0.00);
-			Event ev7=new Event(7, "Malaga-Valencia", UtilDate.newDate(year,month,17), 0.00);
-			Event ev8=new Event(8, "Girona-Leganés", UtilDate.newDate(year,month,17), 0.00);
-			Event ev9=new Event(9, "Real Sociedad-Levante", UtilDate.newDate(year,month,17), 0.00);
-			Event ev10=new Event(10, "Betis-Real Madrid", UtilDate.newDate(year,month,17), 0.00);
+			Event ev1=new Event(1, "Atlético-Athletic", UtilDate.newDate(year,month-2,17), 0.00, "Abierto", "58017145J");
+			Event ev2=new Event(2, "Eibar-Barcelona", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
+			Event ev3=new Event(3, "Getafe-Celta", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
+			Event ev4=new Event(4, "Alavés-Deportivo", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
+			Event ev5=new Event(5, "Español-Villareal", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
+			Event ev6=new Event(6, "Las Palmas-Sevilla", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
+			Event ev7=new Event(7, "Malaga-Valencia", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
+			Event ev8=new Event(8, "Girona-Leganés", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
+			Event ev9=new Event(9, "Real Sociedad-Levante", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
+			Event ev10=new Event(10, "Betis-Real Madrid", UtilDate.newDate(year,month,17), 0.00, "Abierto", "58017145J");
 
-			Event ev11=new Event(11, "Atletico-Athletic", UtilDate.newDate(year,month,1), 0.00);
-			Event ev12=new Event(12, "Eibar-Barcelona", UtilDate.newDate(year,month,1), 0.00);
-			Event ev13=new Event(13, "Getafe-Celta", UtilDate.newDate(year,month,1), 0.00);
-			Event ev14=new Event(14, "Alavés-Deportivo", UtilDate.newDate(year,month,1), 0.00);
-			Event ev15=new Event(15, "Español-Villareal", UtilDate.newDate(year,month,1), 0.00);
-			Event ev16=new Event(16, "Las Palmas-Sevilla", UtilDate.newDate(year,month,1), 0.00);
+			Event ev11=new Event(11, "Atletico-Athletic", UtilDate.newDate(year,month,1), 0.00, "Abierto", "58017145J");
+			Event ev12=new Event(12, "Eibar-Barcelona", UtilDate.newDate(year,month,1), 0.00, "Abierto", "58017145J");
+			Event ev13=new Event(13, "Getafe-Celta", UtilDate.newDate(year,month,1), 0.00, "Abierto", "58017145J");
+			Event ev14=new Event(14, "Alavés-Deportivo", UtilDate.newDate(year,month,1), 0.00, "Abierto", "58017145J");
+			Event ev15=new Event(15, "Español-Villareal", UtilDate.newDate(year,month,1), 0.00, "Abierto", "58017145J");
+			Event ev16=new Event(16, "Las Palmas-Sevilla", UtilDate.newDate(year,month,1), 0.00, "Abierto", "58017145J");
 			
 
-			Event ev17=new Event(17, "Málaga-Valencia", UtilDate.newDate(year,month+1,28), 0.00);
-			Event ev18=new Event(18, "Girona-Leganés", UtilDate.newDate(year,month+1,28), 0.00);
-			Event ev19=new Event(19, "Real Sociedad-Levante", UtilDate.newDate(year,month+1,28), 0.00);
-			Event ev20=new Event(20, "Betis-Real Madrid", UtilDate.newDate(year,month+1,28), 0.00);
+			Event ev17=new Event(17, "Málaga-Valencia", UtilDate.newDate(year,month+1,28), 0.00, "Abierto", "58017145J");
+			Event ev18=new Event(18, "Girona-Leganés", UtilDate.newDate(year,month+1,28), 0.00, "Abierto", "58017145J");
+			Event ev19=new Event(19, "Real Sociedad-Levante", UtilDate.newDate(year,month+1,28), 0.00, "Abierto", "58017145J");
+			Event ev20=new Event(20, "Betis-Real Madrid", UtilDate.newDate(year,month+1,28), 0.00, "Abierto", "58017145J");
 			
 			Question q1;
 			Question q2;
@@ -189,7 +188,7 @@ public class DataAccess  {
 			db.getTransaction().commit();
 			return q;
 		
-	}
+	} 
 	
 	/**
 	 * This method retrieves from the database the events of a given date 
@@ -200,7 +199,32 @@ public class DataAccess  {
 	public Vector<Event> getEvents(Date date) {
 		System.out.println(">> DataAccess: getEvents");
 		Vector<Event> res = new Vector<Event>();	
-		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",Event.class);   
+		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1 AND ev.estado='Abierto'",Event.class);   
+		query.setParameter(1, date);
+		List<Event> events = query.getResultList();
+	 	 for (Event ev:events){
+	 	   System.out.println(ev.toString());		 
+		   res.add(ev);
+		  }
+	 	return res;
+	}
+	public Vector<Event> getEvents(String DNI) {
+		System.out.println(">> DataAccess: getEvents");
+		Vector<Event> res = new Vector<Event>();	
+		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.DNI=?1 AND ev.estado='Abierto'",Event.class);   
+		query.setParameter(1, DNI);
+		List<Event> events = query.getResultList();
+	 	 for (Event ev:events){
+	 	   System.out.println(ev.toString());		 
+		   res.add(ev);
+		  }
+	 	return res;
+	}
+	
+	public Vector<Event> getPassedEvents(Date date) {
+		System.out.println(">> DataAccess: getEvents");
+		Vector<Event> res = new Vector<Event>();	
+		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.estado='Abierto' AND ev.eventDate <= ?1",Event.class);   
 		query.setParameter(1, date);
 		List<Event> events = query.getResultList();
 	 	 for (Event ev:events){
@@ -279,7 +303,7 @@ public boolean existQuestion(Event event, String question) {
 		System.out.println("DataBase closed");
 	}
 	
-	public void crearSubasta(String nombre, Date fecha, float pujaMin) {
+	public void crearSubasta(String nombre, Date fecha, float pujaMin, String DNI) {
 		/*
 		 * Necesitamos:
 		 * 	- Aumentar el numero de subastas (Query con las subastas de ese dia y al añadir la siguiente solamente es un mas uno)
@@ -287,12 +311,29 @@ public boolean existQuestion(Event event, String question) {
 		 *  - Persist
 		 *  - Commit
 		 */
-		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev",Event.class);   
+		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev ",Event.class);   
 		List<Event> subastas = query.getResultList();
 		db.getTransaction().begin();
-		Event ev = new Event(subastas.size() + 1, nombre, fecha, pujaMin);
+		Event ev = new Event(subastas.size() + 1, nombre, fecha, pujaMin, "Abierto", DNI);
 		db.persist(ev);
 		db.getTransaction().commit();
 	}
 	
+	public void cerrarSubasta(int num) {
+		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventNumber=?1", Event.class);
+		query.setParameter(1, num);
+		List<Event> subastas = query.getResultList();
+		Event ev = subastas.get(0);
+		ev.setEstado("Cerrado");
+		/*
+		 * No vale con hacer un begin, remove, persist, commit hay que hacer lo siguiente:
+		 */
+		db.getTransaction().begin();
+		db.remove(ev);
+		db.getTransaction().commit();
+		db.getTransaction().begin();
+		db.persist(ev);
+		db.getTransaction().commit();
+		
+	}
 }

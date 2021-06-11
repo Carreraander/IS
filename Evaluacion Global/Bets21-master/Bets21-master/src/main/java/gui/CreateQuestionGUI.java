@@ -300,6 +300,7 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 			e1.printStackTrace();
 
 		}
+		//jbInit(new Vector<domain.Event> v );
 	}
 
 	private void jButtonClose_actionPerformed(ActionEvent e) {

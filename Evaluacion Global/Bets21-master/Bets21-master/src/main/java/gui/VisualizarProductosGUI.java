@@ -32,7 +32,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 
-public class AdminGUI extends JFrame {
+public class VisualizarProductosGUI extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -58,7 +58,7 @@ public class AdminGUI extends JFrame {
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	private JTable tableEvents= new JTable();
 	private DefaultTableModel tableModelEvents;
-	private LoginGUI log;
+
 	private Login login;
 	private JButton logout = new JButton(); 
 	private JButton cerrarSubasta = new JButton(); 
@@ -74,22 +74,22 @@ public class AdminGUI extends JFrame {
 	/**
 	 * This is the default constructor
 	 */
-	public AdminGUI(LoginGUI log, Login login) {
+	public VisualizarProductosGUI(Login login) {
 		//super();
-		this.log = log;
+
 		this.login = login;
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				try {
-					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
-				}
-				System.exit(1);
-			}
-		});
+//		addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				try {
+//					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
+//				} catch (Exception e1) {
+//					// TODO Auto-generated catch block
+//					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
+//				}
+//				System.exit(1);
+//			}
+//		});
 
 		initialize();
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,13 +113,8 @@ public class AdminGUI extends JFrame {
 			this.getContentPane().add(jLabelEvents);
 			jLabelQueries.setBounds(138, 248, 406, 14);
 			BLFacade facade=LoginGUI.getBusinessLogic();
-			
-			Date date = new Date();
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
-			
-			System.out.println(UtilDate.newDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)));
-			Vector<Event> events = facade.getPassedEvents(UtilDate.newDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)));
+
+			Vector<Event> events = facade.getEvents(login.getDni());
 			
 			//System.out.println(events);
 			tableModelEvents = new DefaultTableModel(null, columnNamesEvents);
@@ -166,36 +161,9 @@ public class AdminGUI extends JFrame {
 
 
 			this.getContentPane().add(scrollPaneEvents, null);
-			logout.setText(ResourceBundle.getBundle("Etiquetas").getString("logout"));
-			logout.setBounds(new Rectangle(381, 12, 90, 30));
-			logout.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					//Necesito hacer una funcion complementaria para poder utilizar el this
-					logoutaccion();
-				}
-			});
-			
-			
-			cerrarSubasta.setText(ResourceBundle.getBundle("Etiquetas").getString("cerrarSubasta"));
-			cerrarSubasta.setBounds(new Rectangle(381, 170, 90, 30));
-			cerrarSubasta.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					//Funcion para cerrar una subasta
-					BLFacade facade=LoginGUI.getBusinessLogic();
-					domain.Event ev=(domain.Event)tableModelEvents.getValueAt(i,2);
-					facade.cerrarSubasta(ev.getEventNumber());
-					initialize();
-				}
-			});
-			
-			this.getContentPane().add(logout);
-			this.getContentPane().add(cerrarSubasta);
 	}
 
-	private void logoutaccion() {
-		this.setVisible(false);
-		log.setVisible(true);
-	}
+
 
 
 

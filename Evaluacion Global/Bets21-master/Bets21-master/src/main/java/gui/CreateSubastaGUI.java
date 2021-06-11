@@ -73,7 +73,7 @@ public class CreateSubastaGUI extends JFrame {
 						
 						BLFacade facade = LoginGUI.getBusinessLogic();
 						Date firstDay = UtilDate.trim(new Date(jCalendar.getCalendar().getTime().getTime()));
-						facade.crearSubasta(tNombre.getText(),firstDay,Float.parseFloat(tPujaMin.getText()));
+						facade.crearSubasta(tNombre.getText(),firstDay,Float.parseFloat(tPujaMin.getText()), login.getDni());
 					}
 					else {
 						/*

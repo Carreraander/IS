@@ -10,21 +10,26 @@ public class Login {
 	private String contra;
 	@Id
 	private String dni;
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
 	private boolean admin = false;
 	private boolean propietario = false;
 	//Suponemos que puede tener saldo con decimales
 	private double saldo;
-	
-	public Login(String email, String contra) {
-		this.email = email;
-		this.contra = contra;
-		if (email.contains("@admin.com")) {
-			this.admin = true;
-		}
-		else if (email.contains("@propietario.com")) {
-			this.propietario = true;
-		}
-	}
 	
 	public Login(String dni,String email, String contra, double dinero) {       
     	this.dni = dni;

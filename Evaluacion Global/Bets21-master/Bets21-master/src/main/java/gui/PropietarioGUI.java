@@ -149,7 +149,7 @@ public class PropietarioGUI extends JFrame {
 				 * Si el botno es pulsado: Muestra el GUI de Consultar Pujas
 				 */
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new FindQuestionsGUI();
+					JFrame a = new VisualizarProductosGUI(login);
 
 					a.setVisible(true);
 				}
@@ -157,7 +157,7 @@ public class PropietarioGUI extends JFrame {
 		}
 		return jButtonQueryQueries;
 	}
-	
+
 /*
  * Crea el texto "Seleccionar Opcion" 
  */

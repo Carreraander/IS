@@ -189,6 +189,10 @@ public class LoginGUI extends JFrame {
 			prop.setVisible(true);
 			
 		}
+		else if (login.isAdmin()) {
+			AdminGUI admin = new AdminGUI(this,login);
+			admin.setVisible(true);
+		}
 		else {
 			UsuarioGUI user = new UsuarioGUI(this, login);
 			user.setVisible(true);

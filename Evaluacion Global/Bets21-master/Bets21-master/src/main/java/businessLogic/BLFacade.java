@@ -62,7 +62,12 @@ public interface BLFacade  {
 	public Login login(String email, String contra);
 	
 	@WebMethod
-	public void crearSubasta(String nombre, Date fecha, float pujaMin);
-
+	public void crearSubasta(String nombre, Date fecha, float pujaMin, String DNI);
 	
+	@WebMethod
+	public Vector<Event> getPassedEvents(Date date);
+	@WebMethod
+	public void cerrarSubasta(int i);
+	
+	public Vector<Event> getEvents(String DNI);
 }
