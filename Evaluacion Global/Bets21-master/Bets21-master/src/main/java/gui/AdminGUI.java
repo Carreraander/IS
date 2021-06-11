@@ -116,8 +116,8 @@ public class AdminGUI extends JFrame {
 				 * Si el boton es pulsado: Muestra el GUI de Crear Pujas
 				 */
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new CreateQuestionGUI(new Vector<Event>());
-					a.setVisible(true);
+//					JFrame a = new CreateQuestionGUI(new Vector<Event>());
+//					a.setVisible(true);
 				}
 			});
 		}

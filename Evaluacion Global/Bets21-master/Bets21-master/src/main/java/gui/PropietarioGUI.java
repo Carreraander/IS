@@ -8,16 +8,19 @@ package gui;
 import javax.swing.*;
 
 import domain.Event;
+import domain.Login;
 import businessLogic.BLFacade;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -44,15 +47,19 @@ public class PropietarioGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton;
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
+	private JButton logout = new JButton(); 
 	private JPanel panel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private LoginGUI log;
+	private Login login;
 	
 	/**
 	 * This is the default constructor
 	 */
-	public PropietarioGUI() {
-		super();
-		
+	public PropietarioGUI(LoginGUI log, Login login) {
+		//super();
+		this.log = log;
+		this.login = login;
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -92,11 +99,15 @@ public class PropietarioGUI extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
-			jContentPane.setLayout(new GridLayout(4, 1, 0, 0));
-			jContentPane.add(getLblNewLabel());
+			jContentPane.setLayout(new GridLayout(4, 3, 0, 0));
+			//jContentPane.add(getLblNewLabel());
 			jContentPane.add(getBoton3());
 			jContentPane.add(getBoton2());
+			jContentPane.add(logout());
 			jContentPane.add(getPanel());
+			
+			
+			
 		}
 		return jContentPane;
 	}
@@ -110,13 +121,13 @@ public class PropietarioGUI extends JFrame {
 	private JButton getBoton2() {
 		if (jButtonCreateQuery == null) {
 			jButtonCreateQuery = new JButton();
-			jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+			jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("SubastarProducto"));
 			jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 				/*
 				 * Si el boton es pulsado: Muestra el GUI de Crear Pujas
 				 */
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new CreateQuestionGUI(new Vector<Event>());
+					JFrame a = new CreateSubastaGUI(new Vector<Event>(), login);
 					a.setVisible(true);
 				}
 			});
@@ -132,7 +143,7 @@ public class PropietarioGUI extends JFrame {
 	private JButton getBoton3() {
 		if (jButtonQueryQueries == null) {
 			jButtonQueryQueries = new JButton();
-			jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
+			jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("VisualizarProductos"));
 			jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 				/*
 				 * Si el botno es pulsado: Muestra el GUI de Consultar Pujas
@@ -221,6 +232,21 @@ public class PropietarioGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
+	}
+	private JButton logout() {
+		logout.setText(ResourceBundle.getBundle("Etiquetas").getString("logout"));
+		logout.setBounds(new Rectangle(540,12,90,30));
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Necesito hacer una funcion complementaria para poder utilizar el this
+				logoutaccion();
+			}
+		});
+		return logout;
+	}
+	private void logoutaccion() {
+		this.setVisible(false);
+		log.setVisible(true);
 	}
 	
 } // @jve:decl-index=0:visual-constraint="0,0"

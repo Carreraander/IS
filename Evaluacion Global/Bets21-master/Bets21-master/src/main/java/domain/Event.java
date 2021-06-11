@@ -24,6 +24,16 @@ public class Event implements Serializable {
 	private Integer eventNumber;
 	private String description; 
 	private Date eventDate;
+	private double maxPuja;
+	
+	public double getMaxPuja() {
+		return maxPuja;
+	}
+
+	public void setMaxPuja(double maxPuja) {
+		this.maxPuja = maxPuja;
+	}
+
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Vector<Question> questions=new Vector<Question>();
 
@@ -39,10 +49,12 @@ public class Event implements Serializable {
 		super();
 	}
 
-	public Event(Integer eventNumber, String description,Date eventDate) {
+	public Event(Integer eventNumber, String description,Date eventDate, double maxPuja) {
 		this.eventNumber = eventNumber;
 		this.description = description;
 		this.eventDate=eventDate;
+		this.maxPuja = maxPuja;
+		
 	}
 	
 	public Event( String description,Date eventDate) {
@@ -86,7 +98,7 @@ public class Event implements Serializable {
 	 * @param betMinimum of that question
 	 * @return Bet
 	 */
-	public Question addQuestion(String question, float betMinimum)  {
+	public Question addQuestion(String question, double betMinimum)  {
         Question q=new Question(question,betMinimum, this);
         questions.add(q);
         return q;
@@ -106,8 +118,13 @@ public class Event implements Serializable {
 		}
 		return false;
 	}
+	
+	
+	/*
+	 * Metodo para obtener la puja mas alta -> guardar para posteriormente comparar con la nueva puja > pujamax + 5
+	 */
 		
-
+	
 	
 	@Override
 	public int hashCode() {

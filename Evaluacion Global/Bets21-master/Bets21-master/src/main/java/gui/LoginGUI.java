@@ -59,20 +59,20 @@ public class LoginGUI extends JFrame {
 	 * This is the default constructor
 	 */
 	public LoginGUI() {
-		super();
+		//super();
 		
-//		addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				try {
-//					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
-//				} catch (Exception e1) {
-//					// TODO Auto-generated catch block
-//					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
-//				}
-//				System.exit(1);
-//			}
-//		});
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
+				}
+				System.exit(1);
+			}
+		});
 
 		initialize();
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,30 +163,14 @@ public class LoginGUI extends JFrame {
 			jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 				/*
 				 * Si el boton es pulsado: Muestra el GUI de Crear Pujas
+				 * FIX: Facade is null
 				 */
+				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					BLFacade facade = LoginGUI.getBusinessLogic();
 					//Hay que convertir la contraseña a string ya que el metodo getPassword devuelve un array de char
 					Login login = facade.login(tmail.getText(),new String(tcontra.getPassword()));
-					if (login != null) {
-						if (login.isAdmin()) {
-							AdminGUI admin = new AdminGUI(this, login);
-							admin.setVisible(true);
-							//this.setVisible(false);
-						}
-						else if (login.isPropietario()){
-							PropietarioGUI prop = new PropietarioGUI(this, login);
-							prop.setVisible(true);
-							//this.setVisible(false);
-						}
-						else {
-							UsuarioGUI user = new UsuarioGUI(this, login);
-							user.setVisible(true);
-							//this.setVisible(false);
-						}
-					}
-					JFrame a = new CreateQuestionGUI(new Vector<Event>());
-					a.setVisible(true);
+					hacerLogin(login);
 				}
 			});
 		}
@@ -197,6 +181,20 @@ public class LoginGUI extends JFrame {
  * Crea el texto "Seleccionar Opcion" 
  */
 	
+	private void hacerLogin(Login login) {
+		
+		//BLFacade facade = LoginGUI.getBusinessLogic();
+		if (login.isPropietario()) {
+			PropietarioGUI prop = new PropietarioGUI(this, login);
+			prop.setVisible(true);
+			
+		}
+		else {
+			UsuarioGUI user = new UsuarioGUI(this, login);
+			user.setVisible(true);
+		}
+		this.setVisible(false);
+	}
 	private JLabel getLblNewLabel() {
 		if (jLabelSelectOption == null) {
 			jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Login"));

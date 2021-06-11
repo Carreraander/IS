@@ -19,7 +19,7 @@ public class Question implements Serializable {
 	@GeneratedValue
 	private Integer questionNumber;
 	private String question; 
-	private float betMinimum;
+	private double betMinimum;
 	private String result;  
 	@XmlIDREF
 	private Event event;
@@ -28,7 +28,7 @@ public class Question implements Serializable {
 		super();
 	}
 	
-	public Question(Integer queryNumber, String query, float betMinimum, Event event) {
+	public Question(Integer queryNumber, String query, double betMinimum, Event event) {
 		super();
 		this.questionNumber = queryNumber;
 		this.question = query;
@@ -36,7 +36,7 @@ public class Question implements Serializable {
 		this.event = event;
 	}
 	
-	public Question(String query, float betMinimum,  Event event) {
+	public Question(String query, double betMinimum,  Event event) {
 		super();
 		this.question = query;
 		this.betMinimum=betMinimum;
@@ -91,7 +91,7 @@ public class Question implements Serializable {
 	 * @return the minimum bet ammount
 	 */
 	
-	public float getBetMinimum() {
+	public double getBetMinimum() {
 		return betMinimum;
 	}
 
@@ -155,7 +155,7 @@ public class Question implements Serializable {
 
 
 	public String toString(){
-		return questionNumber+";"+question+";"+Float.toString(betMinimum);
+		return questionNumber+";"+question+";"+Double.toString(betMinimum);
 	}
 
 

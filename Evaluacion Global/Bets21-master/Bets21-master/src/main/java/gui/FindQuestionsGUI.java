@@ -42,12 +42,14 @@ public class FindQuestionsGUI extends JFrame {
 	
 	private String[] columnNamesEvents = new String[] {
 			ResourceBundle.getBundle("Etiquetas").getString("EventN"), 
-			ResourceBundle.getBundle("Etiquetas").getString("Event"), 
+			ResourceBundle.getBundle("Etiquetas").getString("Event"),
+			//ResourceBundle.getBundle("Etiquetas").getString("MinimumBetPrice"),
 
 	};
 	private String[] columnNamesQueries = new String[] {
 			ResourceBundle.getBundle("Etiquetas").getString("QueryN"), 
-			ResourceBundle.getBundle("Etiquetas").getString("Query")
+			ResourceBundle.getBundle("Etiquetas").getString("Query"),
+			ResourceBundle.getBundle("Etiquetas").getString("MinimumBetPrice")
 
 	};
 
@@ -94,7 +96,7 @@ public class FindQuestionsGUI extends JFrame {
 
 		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
 
-		BLFacade facade = MainGUI.getBusinessLogic();
+		BLFacade facade = LoginGUI.getBusinessLogic();
 		datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar1.getDate());
 		CreateQuestionGUI.paintDaysWithEvents(jCalendar1,datesWithEventsCurrentMonth);
 
@@ -131,7 +133,7 @@ public class FindQuestionsGUI extends JFrame {
 						
 						jCalendar1.setCalendar(calendarAct);
 
-						BLFacade facade = MainGUI.getBusinessLogic();
+						BLFacade facade = LoginGUI.getBusinessLogic();
 
 						datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar1.getDate());
 					}
@@ -146,7 +148,7 @@ public class FindQuestionsGUI extends JFrame {
 						tableModelEvents.setDataVector(null, columnNamesEvents);
 						tableModelEvents.setColumnCount(3); // another column added to allocate ev objects
 
-						BLFacade facade=MainGUI.getBusinessLogic();
+						BLFacade facade=LoginGUI.getBusinessLogic();
 
 						Vector<domain.Event> events=facade.getEvents(firstDay);
 
@@ -155,15 +157,18 @@ public class FindQuestionsGUI extends JFrame {
 						for (domain.Event ev:events){
 							Vector<Object> row = new Vector<Object>();
 
-							System.out.println("Events "+ev);
+							System.out.println("Events " + ev + " PujaMax : " + ev.getMaxPuja());
 
 							row.add(ev.getEventNumber());
 							row.add(ev.getDescription());
+
+							//row.add(ev.getMaxPuja());
 							row.add(ev); // ev object added in order to obtain it with tableModelEvents.getValueAt(i,2)
 							tableModelEvents.addRow(row);		
 						}
 						tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
 						tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
+						//tableEvents.getColumnModel().getColumn(2).setPreferredWidth(45);
 						tableEvents.getColumnModel().removeColumn(tableEvents.getColumnModel().getColumn(2)); // not shown in JTable
 					} catch (Exception e1) {
 
@@ -198,10 +203,12 @@ public class FindQuestionsGUI extends JFrame {
 
 					row.add(q.getQuestionNumber());
 					row.add(q.getQuestion());
+					row.add(q.getBetMinimum());
 					tableModelQueries.addRow(row);	
 				}
 				tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
+				tableQueries.getColumnModel().getColumn(2).setPreferredWidth(45);
 			}
 		});
 
@@ -211,6 +218,7 @@ public class FindQuestionsGUI extends JFrame {
 		tableEvents.setModel(tableModelEvents);
 		tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
 		tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
+		//tableEvents.getColumnModel().getColumn(2).setPreferredWidth(45);
 
 
 		scrollPaneQueries.setViewportView(tableQueries);
@@ -219,6 +227,7 @@ public class FindQuestionsGUI extends JFrame {
 		tableQueries.setModel(tableModelQueries);
 		tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 		tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);
+		tableQueries.getColumnModel().getColumn(2).setPreferredWidth(45);
 
 		this.getContentPane().add(scrollPaneEvents, null);
 		this.getContentPane().add(scrollPaneQueries, null);

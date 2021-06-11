@@ -60,6 +60,9 @@ public interface BLFacade  {
 	@WebMethod public void initializeBD();
 	
 	public Login login(String email, String contra);
+	
+	@WebMethod
+	public void crearSubasta(String nombre, Date fecha, float pujaMin);
 
 	
 }

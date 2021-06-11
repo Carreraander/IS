@@ -8,6 +8,7 @@ package gui;
 import javax.swing.*;
 
 import domain.Event;
+import domain.Login;
 import businessLogic.BLFacade;
 
 import java.awt.Color;
@@ -45,28 +46,30 @@ public class UsuarioGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
 	private JPanel panel;
-	private LoginGUI login;
+	private LoginGUI log;
+	private Login login;
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	/**
 	 * This is the default constructor
 	 */
-	public UsuarioGUI() {
-		super();
-		
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				try {
-					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
-				}
-				System.exit(1);
-			}
-		});
+	public UsuarioGUI(LoginGUI log, Login login) {
+		//super();
+		this.log = log;
+		this.login = login;
+//		addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				try {
+//					//if (ConfigXML.getInstance().isBusinessLogicLocal()) facade.close();
+//				} catch (Exception e1) {
+//					// TODO Auto-generated catch block
+//					System.out.println("Error: "+e1.toString()+" , probably problems with Business Logic or Database");
+//				}
+//				System.exit(1);
+//			}
+//		});
 
 		initialize();
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,6 +95,13 @@ public class UsuarioGUI extends JFrame {
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJContentPane() {
+		/*
+		 * Necesitamos 3 paneles:
+		 * 	- Desconectar
+		 * 	- Ver subastas
+		 * 	- Pujar por un producto (dentro de ver subastas?)
+		 */
+		
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(new GridLayout(4, 1, 0, 0));
@@ -118,7 +128,7 @@ public class UsuarioGUI extends JFrame {
 				 * Si el boton es pulsado: Muestra el GUI de Crear Pujas
 				 */
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new CreateQuestionGUI(new Vector<Event>());
+					JFrame a = new CreateQuestionGUI(new Vector<Event>(), login);
 					a.setVisible(true);
 				}
 			});

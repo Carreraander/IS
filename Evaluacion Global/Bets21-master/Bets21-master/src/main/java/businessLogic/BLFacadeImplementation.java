@@ -136,6 +136,14 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return l;
 	}
+	
+	@Override
+	@WebMethod
+	public void crearSubasta(String Nombre, Date Fecha, float pujaMin) {
+		DataAccess dbManager = new DataAccess();
+		dbManager.crearSubasta(Nombre,Fecha,pujaMin);
+		dbManager.close();
+	}
 
 }
 

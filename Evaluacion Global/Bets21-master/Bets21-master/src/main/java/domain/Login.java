@@ -1,8 +1,14 @@
 package domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Login {
+	@Id
 	private String email;
 	private String contra;
+	@Id
 	private String dni;
 	private boolean admin = false;
 	private boolean propietario = false;
@@ -20,7 +26,7 @@ public class Login {
 		}
 	}
 	
-	public Login(String dni,String email, String contra) {       
+	public Login(String dni,String email, String contra, double dinero) {       
     	this.dni = dni;
 		this.email = email;                           
 		this.contra = contra;                         
@@ -29,7 +35,8 @@ public class Login {
     	}                                             
 		else if (email.contains("@propietario.com")) {
 			this.propietario = true;                  
-		}                                             
+		}                           
+		this.saldo = dinero;
     }                                                 
 	public String getContra() {
 		return contra;

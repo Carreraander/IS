@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import businessLogic.BLFacade;
 import configuration.UtilDate;
 import domain.Event;
+import domain.Login;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -23,11 +24,15 @@ public class CreateQuestionGUI extends JFrame {
 
 	private JComboBox<Event> jComboBoxEvents = new JComboBox<Event>();
 	DefaultComboBoxModel<Event> modelEvents = new DefaultComboBoxModel<Event>();
+	private Login login;
 
 	private JLabel jLabelListOfEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ListEvents"));
 	private JLabel jLabelQuery = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Query"));
-	private JLabel jLabelMinBet = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MinimumBetPrice"));
+	private JLabel jLabelMinBet = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Puja"));
 	private JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
+	private JLabel saldo = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Saldo"));
+
+	
 
 	private JTextField jTextFieldQuery = new JTextField();
 	private JTextField jTextFieldPrice = new JTextField();
@@ -44,7 +49,8 @@ public class CreateQuestionGUI extends JFrame {
 	
 	private Vector<Date> datesWithEventsCurrentMonth = new Vector<Date>();
 
-	public CreateQuestionGUI(Vector<domain.Event> v) {
+	public CreateQuestionGUI(Vector<domain.Event> v, Login login) {
+		this.login = login;
 		try {
 			jbInit(v);
 		} catch (Exception e) {
@@ -60,12 +66,16 @@ public class CreateQuestionGUI extends JFrame {
 
 		jComboBoxEvents.setModel(modelEvents);
 		jComboBoxEvents.setBounds(new Rectangle(275, 47, 250, 20));
-		jLabelListOfEvents.setBounds(new Rectangle(290, 18, 277, 20));
+		jLabelListOfEvents.setBounds(new Rectangle(275, 18, 277, 20));
 		jLabelQuery.setBounds(new Rectangle(25, 211, 75, 20));
 		jTextFieldQuery.setBounds(new Rectangle(100, 211, 429, 20));
 		jLabelMinBet.setBounds(new Rectangle(25, 243, 75, 20));
 		jTextFieldPrice.setBounds(new Rectangle(100, 243, 60, 20));
-
+		saldo.setBounds(new Rectangle(449, 74, 80, 30));
+		JLabel saldoUser = new JLabel(String.valueOf(login.getSaldo()));
+		saldoUser.setBounds(new Rectangle(510, 74, 80, 30));
+		
+		
 		jCalendar.setBounds(new Rectangle(40, 50, 225, 150));
 		scrollPaneEvents.setBounds(new Rectangle(25, 44, 346, 116));
 
@@ -99,6 +109,8 @@ public class CreateQuestionGUI extends JFrame {
 		this.getContentPane().add(jTextFieldQuery, null);
 		this.getContentPane().add(jLabelQuery, null);
 		this.getContentPane().add(jTextFieldPrice, null);
+		this.getContentPane().add(saldo,null);
+		this.getContentPane().add(saldoUser,null);
 
 		this.getContentPane().add(jLabelMinBet, null);
 		this.getContentPane().add(jLabelListOfEvents, null);
@@ -107,7 +119,7 @@ public class CreateQuestionGUI extends JFrame {
 		this.getContentPane().add(jCalendar, null);
 		
 		
-		BLFacade facade = MainGUI.getBusinessLogic();
+		BLFacade facade = LoginGUI.getBusinessLogic();
 		datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar.getDate());
 		paintDaysWithEvents(jCalendar,datesWithEventsCurrentMonth);
 		
@@ -144,7 +156,7 @@ public class CreateQuestionGUI extends JFrame {
 						
 						jCalendar.setCalendar(calendarAct);
 						
-						BLFacade facade = MainGUI.getBusinessLogic();
+						BLFacade facade = LoginGUI.getBusinessLogic();
 
 						datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar.getDate());
 					}
@@ -157,7 +169,7 @@ public class CreateQuestionGUI extends JFrame {
 					Date firstDay = UtilDate.trim(calendarAct.getTime());
 
 					try {
-						BLFacade facade = MainGUI.getBusinessLogic();
+						BLFacade facade = LoginGUI.getBusinessLogic();
 
 						Vector<domain.Event> events = facade.getEvents(firstDay);
 
@@ -169,10 +181,13 @@ public class CreateQuestionGUI extends JFrame {
 									+ dateformat1.format(calendarAct.getTime()));
 						jComboBoxEvents.removeAllItems();
 						System.out.println("Events " + events);
-
-						for (domain.Event ev : events)
+						
+						for (domain.Event ev : events) {
+							
 							modelEvents.addElement(ev);
+						}
 						jComboBoxEvents.repaint();
+						
 
 						if (events.size() == 0)
 							jButtonCreate.setEnabled(false);
@@ -252,14 +267,22 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 				// It could be to trigger an exception if the introduced string is not a number
 				float inputPrice = Float.parseFloat(jTextFieldPrice.getText());
 
-				if (inputPrice <= 0)
+				if (inputPrice <= 0  )
 					jLabelError.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
+				else if(inputPrice < event.getMaxPuja() + 5)
+				{
+					jLabelError.setText(ResourceBundle.getBundle("Etiquetas").getString("PujaPeq"));
+				}
 				else {
 
 					// Obtain the business logic from a StartWindow class (local or remote)
-					BLFacade facade = MainGUI.getBusinessLogic();
+					BLFacade facade = LoginGUI.getBusinessLogic();
 
 					facade.createQuestion(event, inputQuery, inputPrice);
+					System.out.println("La antigua mayor Puja : " + event.getMaxPuja());
+					event.setMaxPuja(inputPrice);
+					System.out.println("La nueva mayor Puja : " + event.getMaxPuja());
+					login.setSaldo(login.getSaldo() - inputPrice);
 
 					jLabelMsg.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryCreated"));
 				}
