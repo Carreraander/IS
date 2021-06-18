@@ -13,16 +13,11 @@ import domain.Login;
 import businessLogic.BLFacade;
 import configuration.UtilDate;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -36,9 +31,6 @@ public class AdminGUI extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
-	//private JPanel jContentPane = null;
-	private JButton jButtonCreateQuery = null;
-	private JButton jButtonQueryQueries = null;
 
     private static BLFacade appFacadeInterface;
 	
@@ -50,16 +42,12 @@ public class AdminGUI extends JFrame {
 		appFacadeInterface=afi;
 	}
 	protected JLabel jLabelSelectOption;
-	private JRadioButton rdbtnNewRadioButton;
-	private JRadioButton rdbtnNewRadioButton_1;
-	private JRadioButton rdbtnNewRadioButton_2;
 	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events")); 
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries")); 
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	private JTable tableEvents= new JTable();
 	private DefaultTableModel tableModelEvents;
 	private LoginGUI log;
-	private Login login;
 	private JButton logout = new JButton(); 
 	private JButton cerrarSubasta = new JButton(); 
 	private int i;
@@ -77,7 +65,6 @@ public class AdminGUI extends JFrame {
 	public AdminGUI(LoginGUI log, Login login) {
 		//super();
 		this.log = log;
-		this.login = login;
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -104,7 +91,7 @@ public class AdminGUI extends JFrame {
 	 */
 	private void initialize() {
 		// this.setSize(271, 295);
-		this.setSize(495, 290);
+		this.setSize(550, 290);
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
 
@@ -177,13 +164,14 @@ public class AdminGUI extends JFrame {
 			
 			
 			cerrarSubasta.setText(ResourceBundle.getBundle("Etiquetas").getString("cerrarSubasta"));
-			cerrarSubasta.setBounds(new Rectangle(381, 170, 90, 30));
+			cerrarSubasta.setBounds(new Rectangle(381, 170, 120, 30));
 			cerrarSubasta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//Funcion para cerrar una subasta
 					BLFacade facade=LoginGUI.getBusinessLogic();
 					domain.Event ev=(domain.Event)tableModelEvents.getValueAt(i,2);
 					facade.cerrarSubasta(ev.getEventNumber());
+
 					initialize();
 				}
 			});

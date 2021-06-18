@@ -7,19 +7,16 @@ package gui;
 
 import javax.swing.*;
 
-import domain.Event;
 import domain.Login;
 import businessLogic.BLFacade;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -31,7 +28,6 @@ public class LoginGUI extends JFrame {
 
 	private JPanel jContentPane = null;
 	private JButton jButtonCreateQuery = null;
-	private JButton jButtonQueryQueries = null;
 
     private static BLFacade appFacadeInterface;
 	
@@ -265,9 +261,9 @@ public class LoginGUI extends JFrame {
 	}
 	
 	private void redibujar() {
-		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
-		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
-		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("Login"));
+		lmail.setText(ResourceBundle.getBundle("Etiquetas").getString("Email"));
+		lcontra.setText(ResourceBundle.getBundle("Etiquetas").getString("Contra"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
 	

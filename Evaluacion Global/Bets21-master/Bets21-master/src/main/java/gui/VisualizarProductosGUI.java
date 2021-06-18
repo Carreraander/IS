@@ -11,34 +11,16 @@ import javax.swing.table.DefaultTableModel;
 import domain.Event;
 import domain.Login;
 import businessLogic.BLFacade;
-import configuration.UtilDate;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Rectangle;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
-
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
 
 
 public class VisualizarProductosGUI extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-
-	//private JPanel jContentPane = null;
-	private JButton jButtonCreateQuery = null;
-	private JButton jButtonQueryQueries = null;
 
     private static BLFacade appFacadeInterface;
 	
@@ -50,9 +32,6 @@ public class VisualizarProductosGUI extends JFrame {
 		appFacadeInterface=afi;
 	}
 	protected JLabel jLabelSelectOption;
-	private JRadioButton rdbtnNewRadioButton;
-	private JRadioButton rdbtnNewRadioButton_1;
-	private JRadioButton rdbtnNewRadioButton_2;
 	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events")); 
 	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries")); 
 	private JScrollPane scrollPaneEvents = new JScrollPane();
@@ -60,9 +39,6 @@ public class VisualizarProductosGUI extends JFrame {
 	private DefaultTableModel tableModelEvents;
 
 	private Login login;
-	private JButton logout = new JButton(); 
-	private JButton cerrarSubasta = new JButton(); 
-	private int i;
 	
 	private String[] columnNamesEvents = new String[] {
 			ResourceBundle.getBundle("Etiquetas").getString("EventN"), 
@@ -147,12 +123,6 @@ public class VisualizarProductosGUI extends JFrame {
 					tableModelEvents.addRow(row);		
 				}
 				
-			tableEvents.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					i = tableEvents.getSelectedRow();
-				}
-			});
 
 			tableEvents.getColumnModel().removeColumn(tableEvents.getColumnModel().getColumn(2)); // not shown in JTable
 

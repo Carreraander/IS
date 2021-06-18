@@ -14,6 +14,7 @@ import businessLogic.BLFacade;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
@@ -41,10 +42,12 @@ public class UsuarioGUI extends JFrame {
 	public static void setBussinessLogic (BLFacade afi){
 		appFacadeInterface=afi;
 	}
+	private JButton jSaldo;
 	protected JLabel jLabelSelectOption;
 	private JRadioButton rdbtnNewRadioButton;
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
+	private JButton logout = new JButton(); 
 	private JPanel panel;
 	private LoginGUI log;
 	private Login login;
@@ -96,23 +99,41 @@ public class UsuarioGUI extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		/*
-		 * Necesitamos 3 paneles:
+		 * Necesitamos 4 paneles:
 		 * 	- Desconectar
 		 * 	- Ver subastas
+		 *  - Saldo
 		 * 	- Pujar por un producto (dentro de ver subastas?)
 		 */
 		
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
-			jContentPane.setLayout(new GridLayout(4, 1, 0, 0));
+			jContentPane.setLayout(new GridLayout(6, 1, 0, 0));
 			jContentPane.add(getLblNewLabel());
 			jContentPane.add(getBoton3());
 			jContentPane.add(getBoton2());
+			jContentPane.add(saldo());
+			jContentPane.add(logout());
 			jContentPane.add(getPanel());
 		}
 		return jContentPane;
 	}
 
+	private JButton saldo() {
+		jSaldo = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MostrarSaldo"));
+		jSaldo.addActionListener(new java.awt.event.ActionListener() {
+			/*
+			 * Si el boton es pulsado: Muestra el GUI de Crear Pujas
+			 */
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				System.out.println("DNI Login:" + login.getDni());
+				System.out.println("DNI Login:" + login.getSaldo());
+				JFrame a = new SaldoGUI(login);
+				a.setVisible(true);
+			}
+		});
+		return jSaldo;
+	}
 
 	/**
 	 * Genera el boton "Crear Puja"
@@ -232,8 +253,24 @@ public class UsuarioGUI extends JFrame {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+		jSaldo.setText(ResourceBundle.getBundle("Etiquetas").getString("MostrarSaldo"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
 	
+	private JButton logout() {
+		logout.setText(ResourceBundle.getBundle("Etiquetas").getString("logout"));
+		logout.setBounds(new Rectangle(540,12,90,30));
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Necesito hacer una funcion complementaria para poder utilizar el this
+				logoutaccion();
+			}
+		});
+		return logout;
+	}
+	private void logoutaccion() {
+		this.setVisible(false);
+		log.setVisible(true);
+	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 

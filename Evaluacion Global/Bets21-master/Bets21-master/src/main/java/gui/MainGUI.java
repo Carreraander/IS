@@ -7,7 +7,6 @@ package gui;
 
 import javax.swing.*;
 
-import domain.Event;
 import businessLogic.BLFacade;
 
 import java.awt.Color;
@@ -17,7 +16,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

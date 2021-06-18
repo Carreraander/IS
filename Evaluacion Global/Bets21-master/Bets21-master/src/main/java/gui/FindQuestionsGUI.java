@@ -137,7 +137,7 @@ public class FindQuestionsGUI extends JFrame {
 
 						datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar1.getDate());
 					}
-
+					
 
 
 					CreateQuestionGUI.paintDaysWithEvents(jCalendar1,datesWithEventsCurrentMonth);

@@ -44,6 +44,8 @@ public class PropietarioGUI extends JFrame {
 		appFacadeInterface=afi;
 	}
 	protected JLabel jLabelSelectOption;
+
+	private JButton jSaldo;
 	private JRadioButton rdbtnNewRadioButton;
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
@@ -99,20 +101,31 @@ public class PropietarioGUI extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
-			jContentPane.setLayout(new GridLayout(4, 3, 0, 0));
+			jContentPane.setLayout(new GridLayout(5, 3, 0, 0));
 			//jContentPane.add(getLblNewLabel());
 			jContentPane.add(getBoton3());
 			jContentPane.add(getBoton2());
+			jContentPane.add(saldo());
 			jContentPane.add(logout());
-			jContentPane.add(getPanel());
-			
-			
-			
+			jContentPane.add(getPanel());	
 		}
 		return jContentPane;
 	}
 
-
+	private JButton saldo() {
+		jSaldo = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MostrarSaldo"));
+		jSaldo.addActionListener(new java.awt.event.ActionListener() {
+			/*
+			 * Si el boton es pulsado: Muestra el GUI de Crear Pujas
+			 */
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				JFrame a = new SaldoGUI(login);
+				a.setVisible(true);
+			}
+		});
+		return jSaldo;
+	}
+	
 	/**
 	 * Genera el boton "Crear Puja"
 	 * 
@@ -156,20 +169,6 @@ public class PropietarioGUI extends JFrame {
 			});
 		}
 		return jButtonQueryQueries;
-	}
-
-/*
- * Crea el texto "Seleccionar Opcion" 
- */
-	
-	private JLabel getLblNewLabel() {
-		if (jLabelSelectOption == null) {
-			jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
-			jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
-			jLabelSelectOption.setForeground(Color.BLACK);
-			jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
-		}
-		return jLabelSelectOption;
 	}
 	
 /*
@@ -231,6 +230,7 @@ public class PropietarioGUI extends JFrame {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"));
+		jSaldo.setText(ResourceBundle.getBundle("Etiquetas").getString("MostrarSaldo"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
 	private JButton logout() {

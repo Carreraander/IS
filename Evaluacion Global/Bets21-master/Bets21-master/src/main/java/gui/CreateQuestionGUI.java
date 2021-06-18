@@ -27,14 +27,8 @@ public class CreateQuestionGUI extends JFrame {
 	private Login login;
 
 	private JLabel jLabelListOfEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ListEvents"));
-	private JLabel jLabelQuery = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Query"));
 	private JLabel jLabelMinBet = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Puja"));
 	private JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
-	private JLabel saldo = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Saldo"));
-
-	
-
-	private JTextField jTextFieldQuery = new JTextField();
 	private JTextField jTextFieldPrice = new JTextField();
 	private JCalendar jCalendar = new JCalendar();
 	private Calendar calendarAct = null;
@@ -67,13 +61,9 @@ public class CreateQuestionGUI extends JFrame {
 		jComboBoxEvents.setModel(modelEvents);
 		jComboBoxEvents.setBounds(new Rectangle(275, 47, 250, 20));
 		jLabelListOfEvents.setBounds(new Rectangle(275, 18, 277, 20));
-		jLabelQuery.setBounds(new Rectangle(25, 211, 75, 20));
-		jTextFieldQuery.setBounds(new Rectangle(100, 211, 429, 20));
 		jLabelMinBet.setBounds(new Rectangle(25, 243, 75, 20));
 		jTextFieldPrice.setBounds(new Rectangle(100, 243, 60, 20));
-		saldo.setBounds(new Rectangle(449, 74, 80, 30));
-		JLabel saldoUser = new JLabel(String.valueOf(login.getSaldo()));
-		saldoUser.setBounds(new Rectangle(510, 74, 80, 30));
+
 		
 		
 		jCalendar.setBounds(new Rectangle(40, 50, 225, 150));
@@ -106,11 +96,7 @@ public class CreateQuestionGUI extends JFrame {
 
 		this.getContentPane().add(jButtonClose, null);
 		this.getContentPane().add(jButtonCreate, null);
-		this.getContentPane().add(jTextFieldQuery, null);
-		this.getContentPane().add(jLabelQuery, null);
 		this.getContentPane().add(jTextFieldPrice, null);
-		this.getContentPane().add(saldo,null);
-		this.getContentPane().add(saldoUser,null);
 
 		this.getContentPane().add(jLabelMinBet, null);
 		this.getContentPane().add(jLabelListOfEvents, null);
@@ -144,22 +130,9 @@ public class CreateQuestionGUI extends JFrame {
 					System.out.println("calendarAct: "+calendarAct.getTime());
 					DateFormat dateformat1 = DateFormat.getDateInstance(1, jCalendar.getLocale());
 					
-					int monthAnt = calendarAnt.get(Calendar.MONTH);
-					int monthAct = calendarAct.get(Calendar.MONTH);
-					if (monthAct!=monthAnt) {
-						if (monthAct==monthAnt+2) { 
-							// Si en JCalendar estÃ¡ 30 de enero y se avanza al mes siguiente, devolverÃ­a 2 de marzo (se toma como equivalente a 30 de febrero)
-							// Con este cÃ³digo se dejarÃ¡ como 1 de febrero en el JCalendar
-							calendarAct.set(Calendar.MONTH, monthAnt+1);
-							calendarAct.set(Calendar.DAY_OF_MONTH, 1);
-						}
-						
-						jCalendar.setCalendar(calendarAct);
-						
-						BLFacade facade = LoginGUI.getBusinessLogic();
+
 
 						datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar.getDate());
-					}
 
 
 
@@ -219,7 +192,7 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 		int offset = calendar.get(Calendar.DAY_OF_WEEK);
 
 		if (Locale.getDefault().equals(new Locale("es")))
-			offset += 4;
+			offset += 5;
 		else
 			offset += 5;
 		
@@ -259,35 +232,25 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 			jLabelError.setText("");
 			jLabelMsg.setText("");
 
-			// Displays an exception if the query field is empty
-			String inputQuery = jTextFieldQuery.getText();
+			// It could be to trigger an exception if the introduced string is not a number
+			float inputPrice = Float.parseFloat(jTextFieldPrice.getText());
 
-			if (inputQuery.length() > 0) {
+			if (inputPrice <= 0  )
+				jLabelError.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
+			else if(inputPrice < event.getMaxPuja() + 5)
+			{
+				jLabelError.setText(ResourceBundle.getBundle("Etiquetas").getString("PujaPeq"));
+			}
+			else {
 
-				// It could be to trigger an exception if the introduced string is not a number
-				float inputPrice = Float.parseFloat(jTextFieldPrice.getText());
+				// Obtain the business logic from a StartWindow class (local or remote)
+				BLFacade facade = LoginGUI.getBusinessLogic();
 
-				if (inputPrice <= 0  )
-					jLabelError.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
-				else if(inputPrice < event.getMaxPuja() + 5)
-				{
-					jLabelError.setText(ResourceBundle.getBundle("Etiquetas").getString("PujaPeq"));
-				}
-				else {
+				facade.createQuestion(event, login.getDni(), inputPrice, login.getDni());
 
-					// Obtain the business logic from a StartWindow class (local or remote)
-					BLFacade facade = LoginGUI.getBusinessLogic();
+				jLabelMsg.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryCreated"));
+			}
 
-					facade.createQuestion(event, inputQuery, inputPrice);
-					System.out.println("La antigua mayor Puja : " + event.getMaxPuja());
-					event.setMaxPuja(inputPrice);
-					System.out.println("La nueva mayor Puja : " + event.getMaxPuja());
-					login.setSaldo(login.getSaldo() - inputPrice);
-
-					jLabelMsg.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryCreated"));
-				}
-			} else
-				jLabelMsg.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorQuery"));
 		} catch (EventFinished e1) {
 			jLabelMsg.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished") + ": "
 					+ event.getDescription());
